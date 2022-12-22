@@ -30,10 +30,6 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 public class Tabs {
 
-    public static String tab = "Tab ";
-    public static String first = "1";
-    public static String second = "2";
-
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
@@ -41,7 +37,7 @@ public class Tabs {
     @Test
     public void changeTabs() {
         ViewInteraction tabView = onView(
-                allOf(withContentDescription(tab + second),
+                allOf(withContentDescription("Tab 2"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.tabs),
@@ -50,23 +46,9 @@ public class Tabs {
                         isDisplayed()));
         tabView.perform(click());
 
-        ViewInteraction textView = onView(allOf(withId(R.id.section_label), withText("Page: " + second)));
+        ViewInteraction textView = onView(allOf(withId(R.id.section_label), withText("Page: 2")));
         textView.check(matches(isDisplayed()));
-        textView.check(matches(withText("Page: " + second)));
-
-        ViewInteraction tabView2 = onView(
-                allOf(withContentDescription(tab + first),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.tabs),
-                                        0),
-                                0),
-                        isDisplayed()));
-        tabView2.perform(click());
-
-        ViewInteraction textView2 = onView(allOf(withId(R.id.section_label), withText("Page: " + first)));
-        textView2.check(matches(isDisplayed()));
-        textView2.check(matches(withText("Page: " + first)));
+        textView.check(matches(withText("Page: 2")));
     }
 
     private static Matcher<View> childAtPosition(
